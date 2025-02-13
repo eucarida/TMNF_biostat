@@ -24,15 +24,45 @@ df_edd_raw <- read_csv2("A01-Race_eddieman194.csv")
 
 # make df_edd_raw tidy ####
 ## TO DO ##
-  # seperate value into stering value and accelerate/breake
-  # remove "press" and "rel"from INPUT
-  # fill in missing information (like lack of stering input at TIME = 0) 
+  # seperate value into stering value and accelerate/breake [done]
+  # remove "press" and "rel"from INPUT [not done]
+  # create up and down coloums with binary value
+  # fill in missing information [not done]
 
 print.data.frame(df_edd_raw)
+# 
+# df_edd_raw %>% 
+#   mutate(GAS = VALUE) %>% 
+#  #group_by(c(INPUT,TIME)) %>% 
+#   filter(GAS == c("up", "down"))
+# 
 
-df_edd_raw %>% 
-  mutate(GAS = VALUE)
-  
+df_edd_tidy <- df_edd_raw %>%
+  pivot_wider(names_from = "INPUT",
+              values_from = "VALUE") 
 
+df_edd_tidy %>% 
+  pivot_wider(names_from = "press",
+              values_from = "press")
+
+
+replace_na(df_edd_tidy$steer,"0")
+
+
+
+
+
+# df_edd_tidy %>% 
+#   filter(press == c("up","down"))
+# 
+# df_edd_tidy %>% 
+#   mutate(UP = unite(rel,press))
+# 
+# df_edd_tidy %>%
+#   mutate( = case_when(
+#     condition1 ~ new_value1,
+#     condition2 ~ new_value2,
+#     TRUE ~ column
+#   ))
 
 
