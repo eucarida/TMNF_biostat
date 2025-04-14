@@ -41,35 +41,37 @@ df_edd_tidy <- df_edd_raw %>%
   pivot_wider(names_from = "INPUT",
               values_from = "VALUE") 
 
-df_edd_tidy <- df_edd_tidy%>% 
+df_edd_tidy1 <- df_edd_tidy%>% 
   pivot_wider(names_from = "press",
               values_from = "press")
 
+replace_na(df_edd_tidy$steer, 0)
 
-df_edd_tidy %>% 
   
-  
-df_edd_tidy %>%
+df_edd_tidy1 %>%
   mutate_at(vars(steer), ~replace_na(., 0))
   
-df_edd_tidy %>% 
+df_edd_tidy1 %>% 
   mutate(steer = as.numeric(steer)) %>% 
   mutate(steer = replace_na(steer, 0))
 
-df_edd_tidy %>% 
+df_edd_tidy1 %>% 
   filter(steer)
   
-# df_edd_tidy %>% 
-#   filter(press == c("up","down"))
-# 
-# df_edd_tidy %>% 
-#   mutate(UP = unite(rel,press))
-# 
-# df_edd_tidy %>%
-#   mutate( = case_when(
-#     condition1 ~ new_value1,
-#     condition2 ~ new_value2,
-#     TRUE ~ column
-#   ))
+# ---
+
+df_edd_tidy$steer <- 
+  as.numeric(df_edd_tidy$steer)
+
+count(is.na(df_edd_tidy$steer))
+
+## Not redy to push %>% 
+# df_edd_tidy$steer <- replace_na(df_edd_tidy$steer, 0)
+
+sum(is.na(df_edd_tidy$steer))
 
 
+df_edd_tidy %>% 
+  filter(steer == is.na())
+
+         
