@@ -1,5 +1,5 @@
-## created on 2025-02-12 by eucardia
-## LAST UPDATED: 2025-02-12
+## created 2025-02-12 by eucarida
+## LAST UPDATED: 2025-04-17 by eucarida
 ## This is project exists to merge statistics with TMNF wr in comparison with 
 ## tas runs and other runs
 
@@ -37,6 +37,7 @@ print.data.frame(df_edd_raw)
 #   filter(GAS == c("up", "down"))
 # 
 
+# pivot data to a more tidy format
 df_edd_tidy <- df_edd_raw %>%
   pivot_wider(names_from = "INPUT",
               values_from = "VALUE") 
@@ -45,36 +46,10 @@ df_edd_tidy1 <- df_edd_tidy%>%
   pivot_wider(names_from = "press",
               values_from = "press")
 
-replace_na(df_edd_tidy$steer, 0)
+# relpace NA with values that are better sutied 
 
-  
-df_edd_tidy1 %>%
-  mutate_at(vars(steer), ~replace_na(., 0))
-  
+# replace NA in steer with 0 as it is a result of a non counted input
 df_edd_tidy1 %>% 
-  mutate(steer = as.numeric(steer)) %>% 
-  mutate(steer = replace_na(steer, 0))
+  replace_na(list(steer = 0))
 
-df_edd_tidy1 %>% 
-  filter(steer)
-  
-# ---
-
-df_edd_tidy$steer <- 
-  as.numeric(df_edd_tidy$steer)
-
-count(is.na(df_edd_tidy$steer))
-
-## Not redy to push %>% 
-# df_edd_tidy$steer <- replace_na(df_edd_tidy$steer, 0)
-
-sum(is.na(df_edd_tidy$steer))
-
-
-df_edd_tidy %>% 
-  filter(steer == is.na())
-
-         
-
-# this is a test push
 
