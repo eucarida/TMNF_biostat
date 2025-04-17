@@ -30,6 +30,7 @@ df_edd_raw <- read_csv2("A01-Race_eddieman194.csv")
   # fill in missing information [not done]
 
 print.data.frame(df_edd_raw)
+
 # 
 # df_edd_raw %>% 
 #   mutate(GAS = VALUE) %>% 
@@ -42,14 +43,14 @@ df_edd_tidy <- df_edd_raw %>%
   pivot_wider(names_from = "INPUT",
               values_from = "VALUE") 
 
-df_edd_tidy1 <- df_edd_tidy%>% 
+df_edd_tidy <- df_edd_tidy%>% 
   pivot_wider(names_from = "press",
               values_from = "press")
 
 # relpace NA with values that are better sutied 
 
 # replace NA in steer with 0 as it is a result of a non counted input
-df_edd_tidy1 %>% 
+df_edd_tidy %>% 
   replace_na(list(steer = 0))
 
 
